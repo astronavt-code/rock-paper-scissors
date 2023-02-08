@@ -31,26 +31,41 @@ resetGame.addEventListener("click", () => {
 let playerChoise;
 let roundsCount = 0;
 
+function checkWinner() {
+  if (cWon === 5 && pWon < 5) {
+    winnerMessage.classList.add("won");
+    winnerMessage.textContent = "Computer won the game";
+  } else if (pWon === 5 && cWon < 5) {
+    winnerMessage.classList.add("won");
+    winnerMessage.textContent = "Player won the game";
+  }
+}
+
 btns.forEach((btn) =>
   btn.addEventListener("click", () => {
+    // if (cWon === 5 && pWon < 5) {
+    //   winnerMessage.classList.add("won");
+    //   winnerMessage.textContent = "Computer won the game";
+    // } else if (pWon === 5 && cWon < 5) {
+    //   winnerMessage.classList.add("won");
+    //   winnerMessage.textContent = "Player won the game";
+    // } else {
+    //   playerChoise = btn.textContent.toLowerCase();
+    //   playRound(playerChoise, computerChoise());
+    // }
     playerChoise = btn.textContent.toLowerCase();
     playRound(playerChoise, computerChoise());
   })
 );
 
 function playRound(playerSelection, computerSelection) {
-  if (cWon === 5) {
-    winnerMessage.classList.add("won");
-    winnerMessage.textContent = "Computer won the game";
-  } else if (pWon === 5) {
-    winnerMessage.classList.add("won");
-    winnerMessage.textContent = "Player won the game";
-  } else if (pWon < 5 && cWon < 5) {
+  if (pWon < 5 && cWon < 5) {
     if (playerSelection === "rock" && computerSelection === "scissors") {
       // console.log("Player won the round");
       winnerMessage.textContent = "Player won the round";
       pWon++;
       playerCount.textContent = pWon;
+      checkWinner();
     } else if (
       playerSelection === "scissors" &&
       computerSelection === "paper"
@@ -59,16 +74,19 @@ function playRound(playerSelection, computerSelection) {
       winnerMessage.textContent = "Player won the round";
       pWon++;
       playerCount.textContent = pWon;
+      checkWinner();
     } else if (playerSelection === "paper" && computerSelection === "rock") {
       // console.log("Player won the round");
       winnerMessage.textContent = "Player won the round";
       pWon++;
       playerCount.textContent = pWon;
+      checkWinner();
     } else if (playerSelection === "scissors" && computerSelection === "rock") {
       // console.log("Computer won the round");
       winnerMessage.textContent = "Computer won this round";
       cWon++;
       compCount.textContent = cWon;
+      checkWinner();
     } else if (
       playerSelection === "paper" &&
       computerSelection === "scissors"
@@ -77,11 +95,13 @@ function playRound(playerSelection, computerSelection) {
       winnerMessage.textContent = "Computer won this round";
       cWon++;
       compCount.textContent = cWon;
+      checkWinner();
     } else if (playerSelection === "rock" && computerSelection === "paper") {
       // console.log("Computer won the round");
       winnerMessage.textContent = "Computer won this round";
       cWon++;
       compCount.textContent = cWon;
+      checkWinner();
     } else {
       // console.log("Draw");
       winnerMessage.textContent = "It's a draw";
